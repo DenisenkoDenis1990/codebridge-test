@@ -1,60 +1,86 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { getNews } from "../utils/newsApi";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { Container } from "@mui/system";
-import debounce from "lodash.debounce";
+import { useLocation, useSearchParams } from "react-router-dom";
+//import debounce from "lodash.debounce";
 import Highlighter from "react-highlight-words";
+import { Box, Grid } from "@mui/material";
+import { FilterBar } from "../components/FilterBar/FilterBar";
+import { NewsGrid } from "../components/NewsGrid/NewsGrid";
+import { Article } from "../components/Aricle/Article";
 
 export const NewsFeed = () => {
   const [articles, setArticles] = useState<any[]>([]);
-  const [filter, setFilter] = useState<String>("");
+  //const [filter, setFilter] = useState<String>("");
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get("filter") ?? "";
   useEffect(() => {
     getNews()
       .then(setArticles)
       .catch((error) => console.log(error));
-    return () => {
-      debouncedChangeHandler.cancel();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // return () => {
+    //   debouncedChangeHandler.cancel();
+    // };
   }, []);
 
-  const inputHandler = (event: { target: { value: any } }) => {
-    const { value } = event.target;
-    const filtArr = value.split(" ");
-    console.log(filtArr);
-    setFilter(value);
+  //   const inputHandler = (event: { target: { value: any } }) => {
+  //     const { value } = event.target;
+  //     const filtArr = value.split(" ");
+  //     console.log(filtArr);
+  //     setSearchParams(value !== "" ? { filter: value } : {});
+  //     //setFilter(value);
+  //   };
+
+  const changeFilter = (value: string) => {
+    setSearchParams(value !== "" ? { filter: value } : {});
   };
 
-  const debouncedChangeHandler = useMemo(() => debounce(inputHandler, 500), []);
+  //   const debouncedChangeHandler = useMemo(() => debounce(changeFilter, 500), []);
 
   const filteredArticles = articles.filter((article) => {
     return (
-      article.title.toLowerCase().includes(filter.toLowerCase()) ||
-      article.summary.toLowerCase().includes(filter.toLowerCase())
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.summary.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 
   return (
-    <Container
-      style={{
-        maxWidth: "1440px",
-        padding: "50px 75px",
-        marginRight: "auto",
-        marginLeft: "auto",
-      }}
-    >
-      <h2>Filter by keyword</h2>
-      <input
+    <Box>
+      <FilterBar
+        resultsCount={filteredArticles.length}
+        onChange={changeFilter}
+      ></FilterBar>
+      <NewsGrid></NewsGrid>
+      {/* <h2>Filter by keyword</h2> */}
+      {/* <input
         type="text"
         name="filter"
         placeholder="Enter keyword"
         onChange={debouncedChangeHandler}
-      ></input>
+      ></input> */}
 
-      {filter.length > 1 && <p> Results: {filteredArticles.length}</p>}
-      <ul>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="stretch"
+        gap={1.25}
+      >
+        {filteredArticles.map((article) => {
+          return (
+            <Article
+              id={article.id}
+              title={article.title}
+              description={article.summary.slice(0, 97) + "..."}
+              image={article.imageUrl}
+              state={{ from: location, article: article }}
+            ></Article>
+          );
+        })}
+      </Grid>
+
+      {/* <ul>
         {filteredArticles.map((article) => {
           return (
             <li key={article.id}>
@@ -66,12 +92,13 @@ export const NewsFeed = () => {
               />
 
               <Highlighter
-                searchWords={filter.split(" ")}
+                searchWords={searchQuery.split(" ")}
                 textToHighlight={article.title}
+                autoEscape={true}
               ></Highlighter>
 
               <Highlighter
-                searchWords={filter.split(" ")}
+                searchWords={searchQuery.split(" ")}
                 textToHighlight={article.summary}
               />
 
@@ -85,7 +112,7 @@ export const NewsFeed = () => {
             </li>
           );
         })}
-      </ul>
-    </Container>
+      </ul> */}
+    </Box>
   );
 };

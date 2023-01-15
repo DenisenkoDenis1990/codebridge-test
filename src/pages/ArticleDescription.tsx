@@ -1,14 +1,10 @@
-import { useRef, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useRef } from "react";
+import { useLocation, Link } from "react-router-dom";
 
 export const ArticleDescription = () => {
   const location = useLocation();
   const article = location.state.article;
   const backUrlPath = useRef(location.state?.from ?? "/");
-  const navigate = useNavigate();
-  console.log(navigate);
-  useEffect(() => {}, []);
-  navigate(backUrlPath.current, { replace: true });
 
   return (
     <>
