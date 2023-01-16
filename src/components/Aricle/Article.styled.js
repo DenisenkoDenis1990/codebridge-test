@@ -8,6 +8,7 @@ export const Title = styled(Highlighter)`
   font-weight: 400;
   font-size: 24px;
   line-height: 29px;
+  margin-bottom: 20px;
 
   color: #363636;
 `;
@@ -18,6 +19,6 @@ export const Description = styled(Highlighter)`
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
-
+  margin-bottom: 25px;
   color: #363636;
 `;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useLocation, useSearchParams } from "react-router-dom";
 //import debounce from "lodash.debounce";
 import Highlighter from "react-highlight-words";
-import { Box, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import { FilterBar } from "../components/FilterBar/FilterBar";
 import { NewsGrid } from "../components/NewsGrid/NewsGrid";
 import { Article } from "../components/Aricle/Article";
@@ -46,12 +46,12 @@ export const NewsFeed = () => {
   });
 
   return (
-    <Box>
+    <Container sx={{ p: "50px 75px", mr: "auto", ml: "auto", width: "1440px" }}>
       <FilterBar
         resultsCount={filteredArticles.length}
         onChange={changeFilter}
       ></FilterBar>
-      <NewsGrid></NewsGrid>
+      {/* <NewsGrid></NewsGrid> */}
       {/* <h2>Filter by keyword</h2> */}
       {/* <input
         type="text"
@@ -60,13 +60,7 @@ export const NewsFeed = () => {
         onChange={debouncedChangeHandler}
       ></input> */}
 
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="stretch"
-        gap={1.25}
-      >
+      <Grid container spacing={1.25} sx={{ mt: "45px" }}>
         {filteredArticles.map((article) => {
           return (
             <Article
@@ -75,6 +69,7 @@ export const NewsFeed = () => {
               description={article.summary.slice(0, 97) + "..."}
               image={article.imageUrl}
               state={{ from: location, article: article }}
+              searchQuery={searchQuery.split(" ")}
             ></Article>
           );
         })}
@@ -113,6 +108,6 @@ export const NewsFeed = () => {
           );
         })}
       </ul> */}
-    </Box>
+    </Container>
   );
 };

@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { Title, Description } from "./Article.styled";
 import { Link } from "react-router-dom";
+import { Grid } from "@mui/material";
 
 type ArticleProps = {
   title: string;
@@ -14,6 +15,7 @@ type ArticleProps = {
   id: number;
   image: string;
   state: object;
+  searchQuery: Array<string>;
 };
 
 export const Article: FC<ArticleProps> = ({
@@ -22,30 +24,39 @@ export const Article: FC<ArticleProps> = ({
   id,
   image,
   state,
+  searchQuery,
 }) => {
   return (
-    <Card sx={{ maxWidth: 400 }} key={id}>
-      <CardMedia
-        sx={{ height: 217 }}
-        image={image}
-        title={id.toString()}
-        component="img"
-      />
-      <CardContent>
-        <Title
-          searchWords={["nasa", "japan", "falcon"]}
-          textToHighlight={title}
-        ></Title>
-        <Description
-          searchWords={["nasa", "japan", "falcon"]}
-          textToHighlight={description}
-        ></Description>
-      </CardContent>
-      <CardActions>
-        <Link to={`/${id}`} state={state}>
-          Read More <TrendingFlatIcon />{" "}
-        </Link>
-      </CardActions>
-    </Card>
+    <Grid item xs={12} md={4} alignSelf="stretch">
+      <Card sx={{ position: "relative", height: "100%" }} key={id}>
+        <CardMedia
+          sx={{ height: 217 }}
+          image={image}
+          title={id.toString()}
+          component="img"
+        />
+        <CardContent>
+          <Title searchWords={searchQuery} textToHighlight={title}></Title>
+          <Description
+            searchWords={searchQuery}
+            textToHighlight={description}
+          ></Description>
+        </CardContent>
+        <CardActions
+          sx={{
+            position: "absolute",
+            left: "10px",
+            bottom: "0px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Link to={`/${id}`} state={state}>
+            Read More
+          </Link>
+          <TrendingFlatIcon />
+        </CardActions>
+      </Card>
+    </Grid>
   );
 };

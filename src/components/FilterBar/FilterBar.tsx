@@ -21,7 +21,7 @@ export const FilterBar: FC<FilterBarProps> = ({ resultsCount, onChange }) => {
         placeholder="Enter keyword"
         onChange={(e) => onChange(e.target.value)}
       ></SearchInput>
-      <ResultLabel>Results: {resultsCount}</ResultLabel>
+      {resultsCount > 0 ?? <ResultLabel>Results: {resultsCount}</ResultLabel>}
       <Divider />
     </Box>
   );
