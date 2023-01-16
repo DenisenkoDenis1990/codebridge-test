@@ -8,9 +8,14 @@ import { ResultLabel } from "./FilterBar.styled";
 type FilterBarProps = {
   resultsCount: number;
   onChange: Function;
+  value: string;
 };
 
-export const FilterBar: FC<FilterBarProps> = ({ resultsCount, onChange }) => {
+export const FilterBar: FC<FilterBarProps> = ({
+  value,
+  resultsCount,
+  onChange,
+}) => {
   return (
     <Box>
       <Title>Filter by keywords</Title>
@@ -19,9 +24,10 @@ export const FilterBar: FC<FilterBarProps> = ({ resultsCount, onChange }) => {
         type="text"
         name="filter"
         placeholder="Enter keyword"
+        value={value}
         onChange={(e) => onChange(e.target.value)}
       ></SearchInput>
-      {resultsCount > 0 ?? <ResultLabel>Results: {resultsCount}</ResultLabel>}
+      {resultsCount > 0 && <ResultLabel>Results: {resultsCount}</ResultLabel>}
       <Divider />
     </Box>
   );

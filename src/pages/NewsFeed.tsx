@@ -8,6 +8,8 @@ import { Box, Container, Grid } from "@mui/material";
 import { FilterBar } from "../components/FilterBar/FilterBar";
 import { NewsGrid } from "../components/NewsGrid/NewsGrid";
 import { Article } from "../components/Aricle/Article";
+import { ConstructionOutlined } from "@mui/icons-material";
+import { getNormalizedDate } from "../utils/dateTransforming";
 
 export const NewsFeed = () => {
   const [articles, setArticles] = useState<any[]>([]);
@@ -19,9 +21,6 @@ export const NewsFeed = () => {
     getNews()
       .then(setArticles)
       .catch((error) => console.log(error));
-    // return () => {
-    //   debouncedChangeHandler.cancel();
-    // };
   }, []);
 
   //   const inputHandler = (event: { target: { value: any } }) => {
@@ -48,31 +47,25 @@ export const NewsFeed = () => {
   return (
     <Container sx={{ p: "50px 75px", mr: "auto", ml: "auto", width: "1440px" }}>
       <FilterBar
+        value={searchQuery}
         resultsCount={filteredArticles.length}
         onChange={changeFilter}
       ></FilterBar>
-      {/* <NewsGrid></NewsGrid> */}
-      {/* <h2>Filter by keyword</h2> */}
-      {/* <input
-        type="text"
-        name="filter"
-        placeholder="Enter keyword"
-        onChange={debouncedChangeHandler}
-      ></input> */}
-
-      <Grid container spacing={1.25} sx={{ mt: "45px" }}>
-        {filteredArticles.map((article) => {
-          return (
-            <Article
-              id={article.id}
-              title={article.title}
-              description={article.summary.slice(0, 97) + "..."}
-              image={article.imageUrl}
-              state={{ from: location, article: article }}
-              searchQuery={searchQuery.split(" ")}
-            ></Article>
-          );
-        })}
+      <Grid container spacing="45px" sx={{ mt: "45px" }}>
+        {filteredArticles.length !== 0 &&
+          filteredArticles.map((article) => {
+            return (
+              <Article
+                id={article.id}
+                title={article.title}
+                description={article.summary.slice(0, 97) + "..."}
+                image={article.imageUrl}
+                state={{ from: location, article: article }}
+                updatedAt={article.updatedAt}
+                searchQuery={searchQuery.split(" ")}
+              ></Article>
+            );
+          })}
       </Grid>
 
       {/* <ul>
@@ -85,6 +78,8 @@ export const NewsFeed = () => {
                 style={{ width: 200 }}
                 loading="lazy"
               />
+
+              <p>{getNormalizedDate(article.updatedAt)}</p>
 
               <Highlighter
                 searchWords={searchQuery.split(" ")}

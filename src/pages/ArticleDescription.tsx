@@ -20,7 +20,8 @@ export const ArticleDescription = () => {
       ></div>
       <div
         style={{
-          //maxWidth: "1290px",
+          width: "1290px",
+          boxSizing: "border-box",
           background: "#FFFFFF",
           border: "1px solid #EAEAEA",
           boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.05)",
@@ -28,7 +29,9 @@ export const ArticleDescription = () => {
           position: "absolute",
           top: "150px",
           left: "75px",
-          //   padding: "35px 75px 50px 75px",
+          marginRight: "auto",
+          marginLeft: "auto",
+          padding: "35px 75px 50px 75px",
         }}
       >
         <h1
@@ -44,9 +47,25 @@ export const ArticleDescription = () => {
         >
           {article.title}
         </h1>
-        <p>{article.summary}</p>
+        <p
+          style={{
+            fontStyle: "normal",
+            fontWeight: "400",
+            fontSize: "18px",
+            lineHeight: "1.5",
+            color: "#000000",
+          }}
+        >
+          {article.summary}
+        </p>
       </div>
-      <Link to={backUrlPath.current}> Back to homepage</Link>
+      <Link
+        to={backUrlPath.current}
+        style={{ position: "absolute", bottom: "45px", left: "150px" }}
+      >
+        {" "}
+        Back to homepage
+      </Link>
     </div>
   );
 };

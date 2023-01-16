@@ -3,18 +3,19 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 import { Title, Description } from "./Article.styled";
 import { Link } from "react-router-dom";
-import { Grid } from "@mui/material";
-
+import { Grid, Typography } from "@mui/material";
+import { getNormalizedDate } from "../../utils/dateTransforming";
 type ArticleProps = {
   title: string;
   description: string;
   id: number;
   image: string;
   state: object;
+  updatedAt: string;
   searchQuery: Array<string>;
 };
 
@@ -25,6 +26,7 @@ export const Article: FC<ArticleProps> = ({
   image,
   state,
   searchQuery,
+  updatedAt,
 }) => {
   return (
     <Grid item xs={12} md={4} alignSelf="stretch">
@@ -36,6 +38,12 @@ export const Article: FC<ArticleProps> = ({
           component="img"
         />
         <CardContent>
+          <Typography variant="subtitle1">
+            <CalendarTodayOutlinedIcon
+              sx={{ width: "16px", height: "16px", mr: "8px", opacity: "0.6" }}
+            />
+            {getNormalizedDate(updatedAt)}
+          </Typography>
           <Title searchWords={searchQuery} textToHighlight={title}></Title>
           <Description
             searchWords={searchQuery}
