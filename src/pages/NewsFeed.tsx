@@ -39,9 +39,23 @@ export const NewsFeed = () => {
 
   const filteredArticles = articles.filter((article) => {
     return (
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.summary.toLowerCase().includes(searchQuery.toLowerCase())
+      article.title
+        .toLowerCase()
+        .split(" ")
+        .some((element: string) =>
+          searchQuery.toLowerCase().split(" ").includes(element)
+        ) ||
+      article.summary
+        .toLowerCase()
+        .split(" ")
+        .some((element: string) =>
+          searchQuery.toLowerCase().split(" ").includes(element)
+        )
     );
+    // return (
+    //   article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //   article.summary.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
   });
 
   return (
