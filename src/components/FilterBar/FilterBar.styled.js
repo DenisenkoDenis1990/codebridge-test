@@ -16,6 +16,10 @@ export const SearchInput = styled(Input)`
   border-radius: 5px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   outline: 0px;
+  &:hover::before {
+    outline: 0;
+    border-bottom: 0;
+  }
 `;
 
 export const SearchIcon = styled(Search)`

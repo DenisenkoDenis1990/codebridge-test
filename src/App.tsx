@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NewsFeed } from "./pages/NewsFeed";
-import { ArticleDescription } from "./pages/ArticleDescription";
+import { ArticleDescription } from "./pages/ArticleDescription/ArticleDescription";
 
 function App() {
   return (
