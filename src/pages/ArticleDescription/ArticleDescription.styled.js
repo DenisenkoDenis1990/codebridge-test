@@ -6,7 +6,7 @@ export const Banner = styled.img`
   top: 0px;
   left: 0px;
   height: 245px;
-  width: 1440px;
+  width: 100%;
   object-repeat: no-repeat;
   object-fit: cover;
   object-position: center;
@@ -14,7 +14,7 @@ export const Banner = styled.img`
 `;
 
 export const ArticleContainer = styled.div`
-  width: 1290px;
+  width: 90%;
   box-sizing: border-box;
   background: #ffffff;
   border: 1px solid #eaeaea;
@@ -32,7 +32,6 @@ export const ArticleTitle = styled.h1`
   font-weight: 400;
   font-size: 24px;
   line-height: 29px;
-  color: #363636;
   margin-bottom: 50px;
 `;
 
@@ -54,10 +53,10 @@ export const BackLinkIcon = styled(KeyboardBackspaceIcon)`
 export const BackLink = styled(Link)`
   display: flex;
   align-items: center;
-  margin-top: 35px;
-  margin-bottom: 45px;
+  margin-top: 45px;
   margin-left: 150px;
   text-decoration: none;
+  color: #363636;
 `;
 
 export const BackLinkAlias = styled.span`
@@ -65,5 +64,4 @@ export const BackLinkAlias = styled.span`
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
-  color: #363636;
 `;

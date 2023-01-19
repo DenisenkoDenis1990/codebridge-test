@@ -1,3 +1,5 @@
+// logic for keywords highlighting
+
 export const getFilteredNews = (text: string, searchQuery: string) => {
   return text
     .toLowerCase()

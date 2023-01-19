@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
+
 import {
   Banner,
   ArticleTitle,
@@ -13,10 +14,12 @@ import {
 export const ArticleDescription = () => {
   const location = useLocation();
   const article = location.state.article;
+
+  // path for backLink button
   const backUrlPath = useRef(location.state?.from ?? "/");
 
   return (
-    <main>
+    <div>
       <Banner src={article.imageUrl} alt={article.id}></Banner>
       <ArticleContainer>
         <ArticleTitle>{article.title}</ArticleTitle>
@@ -27,6 +30,6 @@ export const ArticleDescription = () => {
         <BackLinkIcon />
         <BackLinkAlias> Back to homepage </BackLinkAlias>
       </BackLink>
-    </main>
+    </div>
   );
 };

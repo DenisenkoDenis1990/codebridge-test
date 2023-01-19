@@ -1,3 +1,4 @@
+// transforming Date of last update from request into string like in prototype
 export const getNormalizedDate = (updatedAt: string) => {
   const dateObj = new Date(updatedAt);
   const day = dateObj.getDate();
